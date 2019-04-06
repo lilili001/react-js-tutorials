@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import Todos from './components/Todos';
+import Header from './components/layout/Header'
+import AddItem from './components/AddItem'
+import './app.css'
+import uuid from 'uuid'
 class App extends Component {
   state={
     todos:[
-        {id:1,title:"Take out the trash",completed:false},
-        {id:2,title:"Have dinner with husband",completed:false},
-        {id:3,title:"Meeting boss",completed:false}
+        {id:uuid.v4(),title:"Take out the trash",completed:false},
+        {id:uuid.v4(),title:"Have dinner with husband",completed:false},
+        {id:uuid.v4(),title:"Meeting boss",completed:false}
     ]
   }
   //Togolle complete
@@ -18,12 +22,22 @@ class App extends Component {
             })
         })
   }
-    delTodo = (id)=>{
-        this.setState({todos:this.state.todos.filter(todo=>todo.id!==id)})
-    }
+  delTodo = (id)=>{
+      this.setState({todos:this.state.todos.filter(todo=>todo.id!==id)})
+  }
+  addItem = (title)=>{
+      const newTodo = {
+          id:uuid.v4(),
+          title,
+          completed:false
+      }
+      this.setState({todos:[...this.state.todos,newTodo]})
+  }
   render() {
     return (
       <div className="App">
+        <Header />
+        <AddItem addItem={this.addItem}/>
         <Todos todos={this.state.todos}
                markComplete={this.markComplete}
                delTodo={this.delTodo}
