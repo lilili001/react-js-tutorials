@@ -9,9 +9,7 @@ class TodoItem extends Component {
             textDecoration:this.props.todo.completed? 'line-through' : 'none',
         }
     }
-    markComplete(id){
-        console.log(id)
-    }
+
   render() {
         const {id,title} = this.props.todo;
     return (
@@ -19,7 +17,7 @@ class TodoItem extends Component {
         {/*<div style={{backgroundColor:'#f4f4f4'}}>{this.props.todo.title}</div>*/}
         {/*<div style={itemStyle}>{this.props.todo.title}</div>*/}
         <div style={this.getStyle()}>
-            <input type="checkbox" onChange={this.markComplete.bind(this,id)}/>
+            <input type="checkbox" onChange={this.props.markComplete.bind(this,id)}/>
             {this.props.todo.title}
         </div>
         </div>
