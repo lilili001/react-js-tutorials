@@ -30,6 +30,7 @@ const tweetsReducer = (state=[], action) => {
 }
 
 const reducers = combineReducers({
+    //需要处理的数据 {user:{},tweets:[]}
   user: userReducer,
   tweets: tweetsReducer
 })
