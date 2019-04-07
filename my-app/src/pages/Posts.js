@@ -1,24 +1,25 @@
 import React, {Component} from 'react';
 import PostForm from '../components/PostForm'
+import PropTypes from 'prop-types';
+
+//从store获取数据
+import {connect} from 'react-redux'
+import {fetchPosts} from '../actions/postAction'
+
 class Posts extends Component {
-    constructor(props) {
-        super(props);
-        this.state={
-            posts:[]
+    componentDidMount(){
+        this.props.fetchPosts()
+    }
+    componentWillReceiveProps(nextProps){
+        if(!!nextProps.newPost){
+            //if((nextProps.newPost)['data']) this.props.posts.unshift(nextProps.newPost.data)
         }
     }
-
-    componentWillMount() {
-        fetch('http://jsonplaceholder.typicode.com/posts?_limit=5')
-            .then(res=>res.json())
-            .then(data=>this.setState({posts:data}))
-    }
-
     render() {
         //变量也可以插入到dom中
-        const PostItems = this.state.posts.map(post=>(
-            <div key={post.id}>
-                <h3>{post.title}</h3>
+        const PostItems = this.props.posts.map((post,index)=>(
+            <div key={index}>
+                <h3>{post.id}-{post.title}</h3>
                 <p>{post.body}</p>
             </div>
         ))
@@ -32,4 +33,16 @@ class Posts extends Component {
     }
 }
 
-export default Posts;
+Posts.propTypes = {
+    fetchPosts : PropTypes.func.isRequired,
+    posts:PropTypes.array.isRequired,
+    newPost:PropTypes.object.isRequired
+}
+
+//export default Posts;
+const mapStateToProps = state =>  ({
+    posts:state.posts.items,
+    newPost:state.posts.item
+})
+
+export default connect(mapStateToProps,{fetchPosts})(Posts)

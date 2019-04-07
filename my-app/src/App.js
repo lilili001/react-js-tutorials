@@ -9,6 +9,9 @@ import About from './pages/About'
 import Posts from './pages/Posts'
 
 import axios from 'axios'
+import {Provider} from 'react-redux'
+
+import store from './store'
 
 import './app.css'
 
@@ -47,23 +50,24 @@ class App extends Component {
   }
   render() {
     return (
-        <Router>
-          <div className="App">
-            <Header />
-              <Route exact path="/" render={props=>(
-                  <React.Fragment>
-                      <AddItem addItem={this.addItem}/>
-                      <Todos todos={this.state.todos}
-                             markComplete={this.markComplete}
-                             delTodo={this.delTodo}
-                      />
-                  </React.Fragment>
-              )}></Route>
-              <Route path="/about" component={About}></Route>
-              <Route path="/post" component={Posts}></Route>
-          </div>
-        </Router>
-
+        <Provider store={store}>
+            <Router>
+              <div className="App">
+                <Header />
+                  <Route exact path="/" render={props=>(
+                      <React.Fragment>
+                          <AddItem addItem={this.addItem}/>
+                          <Todos todos={this.state.todos}
+                                 markComplete={this.markComplete}
+                                 delTodo={this.delTodo}
+                          />
+                      </React.Fragment>
+                  )}></Route>
+                  <Route path="/about" component={About}></Route>
+                  <Route path="/post" component={Posts}></Route>
+              </div>
+            </Router>
+        </Provider>
     );
   }
 }
