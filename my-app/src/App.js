@@ -6,6 +6,7 @@ import Todos from './components/Todos';
 import Header from './components/layout/Header'
 import AddItem from './components/AddItem'
 import About from './pages/About'
+import Posts from './pages/Posts'
 
 import axios from 'axios'
 
@@ -59,6 +60,7 @@ class App extends Component {
                   </React.Fragment>
               )}></Route>
               <Route path="/about" component={About}></Route>
+              <Route path="/post" component={Posts}></Route>
           </div>
         </Router>
 
