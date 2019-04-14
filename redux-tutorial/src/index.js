@@ -3,22 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-import {combineReducers,createStore} from 'redux'
+import {combineReducers, createStore} from 'redux'
 
-function productReducer(state = [],action) {
+function productReducer(state = [], action) {
     return state
 }
-function userReducer(state = '',action) {
+function userReducer(state = '', action) {
     return state
 }
 const allReducers = combineReducers({
-    products:productReducer,
-    user:userReducer
+    products: productReducer,
+    user: userReducer
 })
-const store = createStore(allReducers,{
-    products:[{name:'iPhone'}],
-    user:'Michael'
-});
+const store = createStore(
+    allReducers,
+    {
+        products: [{name: 'iPhone'}],
+        user: 'Michael'
+    },
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 console.log(store.getState())
 ReactDOM.render(<App />, document.getElementById('root'));
 
