@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import {connect} from 'react-redux'
 
-import {updateUser} from './actons/userAction'
+import {updateUser,apiRequest} from './actons/userAction'
 
 class App extends Component {
     constructor(props) {
@@ -15,7 +15,9 @@ class App extends Component {
         console.log(111)
         this.props.onUpdateUser(event.target.value);
     }
-
+    componentDidMount(){
+        this.props.onApiRequest()
+    }
     render() {
         console.log(this.props)
         return (
@@ -41,15 +43,9 @@ const mapStateToProps = (state,props) => {
 }
 
 //mapActionsToProps是一个对象 其中的actions自动emit
-const mapActionsToPros = {
-    onUpdateUser: updateUser
+const mapActionsToProps = {
+    onUpdateUser: updateUser,
+    onApiRequest:apiRequest
 }
 
-const mergeProps = (propsFromState,propsFromDispatch,ownProps)=>{
-    console.log( propsFromState)
-    console.log( propsFromDispatch)
-    console.log( ownProps)
-    return {}
-}
-
-export default connect(mapStateToProps, mapActionsToPros,mergeProps)(App);
+export default connect(mapStateToProps, mapActionsToProps)(App);
