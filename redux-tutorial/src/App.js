@@ -32,13 +32,24 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    products: state.products,
-    user: state.user
-})
+const mapStateToProps = (state,props) => {
+    return {
+        products: state.products,
+        user: state.user,
+        userPlusProp:`${state.user} ${props.aRandomProps}`
+    }
+}
 
 //mapActionsToProps是一个对象 其中的actions自动emit
 const mapActionsToPros = {
     onUpdateUser: updateUser
 }
-export default connect(mapStateToProps, mapActionsToPros)(App);
+
+const mergeProps = (propsFromState,propsFromDispatch,ownProps)=>{
+    console.log( propsFromState)
+    console.log( propsFromDispatch)
+    console.log( ownProps)
+    return {}
+}
+
+export default connect(mapStateToProps, mapActionsToPros,mergeProps)(App);
