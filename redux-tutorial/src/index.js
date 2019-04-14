@@ -8,7 +8,11 @@ import {combineReducers, createStore} from 'redux'
 function productReducer(state = [], action) {
     return state
 }
-function userReducer(state = '', action) {
+function userReducer(state = '', {type,payload}) {
+    switch (type){
+        case 'updateUser':
+            return payload
+    }
     return state
 }
 const allReducers = combineReducers({
@@ -24,6 +28,14 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 console.log(store.getState())
+
+const updateUserAction = {
+    type:'updateUser',
+    payload:{
+        user:'John'
+    }
+}
+store.dispatch(updateUserAction)
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
