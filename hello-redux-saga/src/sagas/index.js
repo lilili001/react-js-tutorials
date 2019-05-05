@@ -1,5 +1,6 @@
+//import {delay} from 'redux-saga';
 import {takeEvery,put,delay} from 'redux-saga/effects';
-import {delay} from 'redux-saga';
+
 //const delay = (ms) => new Promise(resolve => setTimeout(resolve,ms))
 
 function* incrementAsync() {
