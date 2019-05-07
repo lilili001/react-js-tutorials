@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {connect} from 'react-redux'
 
@@ -23,8 +22,6 @@ class App extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-
                     <input onChange={this.updateUser}/>
                     {this.props.user}
                 </header>

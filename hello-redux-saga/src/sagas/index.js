@@ -1,14 +1,15 @@
-//import {delay} from 'redux-saga';
-import {takeEvery,put,delay} from 'redux-saga/effects';
-
-//const delay = (ms) => new Promise(resolve => setTimeout(resolve,ms))
-
-function* incrementAsync() {
-   yield delay(2000);
-   //2s 后dispatch一个increment
-   yield put({type:'INCREMENT'})
-}
-export function* watchIncrementAsync() {
-    //takeEvery可以监听action
-    yield takeEvery("INCREMENT_ASYNC",incrementAsync)
+import {all,fork} from 'redux-saga/effects'
+import * as counterSagas from './counter'
+import * as userSagas from './user'
+//=================================export all saga===================================================================
+//将watch的进程导出去
+export default function* rootSaga() {
+    // all([]) 并发执行
+    /*yield all([
+        watchIncrementAsync(),watchFetchUserAsync() ,watchFetchTodosAsync()
+    ])*/
+    yield all([
+        ...Object.values(counterSagas),
+        ...Object.values(userSagas)
+    ].map(fork))
 }

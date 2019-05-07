@@ -2,9 +2,22 @@ import React,{Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {connect} from 'react-redux';
-import {increment,incrementAsync} from './actions/counter'
+import {increment,incrementAsync} from './actions/counter';
+import {getuser} from './actions/user';
+
 class App extends Component{
   render(){
+      const {isFetching,user,error} = this.props.user;
+      let data;
+
+      if (error) {
+          data = error;
+      } else if (isFetching) {
+          data = "Loading..."
+      } else {
+          data = user && user.data[0].name
+      }
+
       return (
           <div className="App">
             <header className="App-header">
@@ -23,9 +36,9 @@ class App extends Component{
                 {this.props.counter}
               <button onClick={this.props.increment}>+</button>
               <button onClick={this.props.incrementAsync}>async + </button>
-
+                <button onClick={this.props.getuser}>get user</button>
+                <h1>{data}</h1>
             </header>
-
           </div>
       );
   }
@@ -33,8 +46,9 @@ class App extends Component{
 
 const mapStateToProps = (state) => {
   return {
-    counter:state.counter
+    counter:state.counter,
+    user:state.user
   }
 }
 
-export default connect(mapStateToProps,{increment,incrementAsync})(App);
+export default connect(mapStateToProps,{increment,incrementAsync,getuser})(App);

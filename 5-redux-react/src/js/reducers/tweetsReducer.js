@@ -3,8 +3,9 @@ export default function reducer(state={
     fetching: false,
     fetched: false,
     error: null,
-  }, action) {
+  }, action)
 
+{
     switch (action.type) {
       case "FETCH_TWEETS": {
         return {...state, fetching: true}

@@ -9,7 +9,7 @@ import rootReducer from './reducers';
 import {Provider} from 'react-redux'
 
 import createSagaMiddleware from 'redux-saga';
-import {watchIncrementAsync} from './sagas';
+import  rootSaga  from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -20,7 +20,7 @@ const store = createStore(
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )
 );
-sagaMiddleware.run(watchIncrementAsync)
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
     <Provider store={store}><App /></Provider>, document.getElementById('root'));
