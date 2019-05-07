@@ -8,6 +8,7 @@ import {getuser} from './actions/user';
 class App extends Component{
   render(){
       const {isFetching,user,error} = this.props.user;
+      console.log(this.props.user)
       let data;
 
       if (error) {

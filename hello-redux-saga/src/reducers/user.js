@@ -13,13 +13,18 @@ const user = (state=initialState, action={})=>{
                 user:null,
                 error:null
             };
-            break;
         case "FETCH_USER_SUCCESS":
             return {
                 isFetching:false,
                 user: action.user,
                 error:null
-            }
+            };
+        case "FETCH_USER_ERROR":
+            return {
+                isFetching:false,
+                user:null,
+                error:action.error
+            };
         default:return state;
     }
 };
