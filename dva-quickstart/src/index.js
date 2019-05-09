@@ -4,7 +4,7 @@ import { createBrowserHistory as createHistory } from 'history';
 
 // 1. Initialize
 const app = dva({
-    history: createHistory()
+    history: createHistory() //配置无# 形式路由
 });
 
 // 2. Plugins
