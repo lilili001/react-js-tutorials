@@ -19,7 +19,7 @@ export default {
         },
         a({dispatch,history}){
             document.addEventListener('click',function () {
-                dispatch({type:'addAsync'})
+                //dispatch({type:'addAsync'})
             })
         },
         //监听路由切换
