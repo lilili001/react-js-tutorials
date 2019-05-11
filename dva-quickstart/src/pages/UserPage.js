@@ -14,7 +14,7 @@ const UserPage = (props) => {
 
     return (
         <div>
-            {data}
+            <h1>{data}</h1>
             <button onClick={()=>{dispatch({type:'user/fetch'})}}>get user</button>
         </div>
     );

@@ -2,6 +2,7 @@ import {delay,put} from 'dva/saga';
 import { routerRedux} from 'dva/router'
 import queryString from 'query-string'
 import pathToRegexp from 'path-to-regexp'
+import axios from 'axios'
 
 export default {
     namespace:"user",
@@ -17,16 +18,42 @@ export default {
         setup({dispatch,history}){}
     },
     effects: {//异步的方法
-        *fetch(action, { call, put , select }) {  // eslint-disable-line //select 可以取出state的值
-            yield put({type:'save'})
+        *fetch(action, { call, put , select,all }) {  // eslint-disable-line //select 可以取出state的值
+            yield put({type:'FETCH_USER_START'});
+            try{
+                const [user] = yield  all([
+                    call( axios.get, "https://jsonplaceholder.typicode.com/users" ),
+                    //call( axios.get, "https://jsonplaceholder.typicode.com/todos" )
+                ]);
+                //dispatch
+                yield put({type:"FETCH_USER_SUCCESS",user})
+            }catch (e) {
+                yield put({type:"FETCH_USER_ERROR",error:e.message})
+            }
         },
     },
     reducers:{//普通的方法
-        'save'(state,action){
+        'FETCH_USER_START'(state,action){
             return {
-                count: state.count+1
+                isFetching:true,
+                error:null,
+                user:null
             }
             //return {...state,...action.payload}
+        },
+        'FETCH_USER_SUCCESS'(state,action){
+            return {
+                isFetching:false,
+                error:null,
+                user:action.user
+            }
+        },
+        'FETCH_USER_ERROR'(state,action){
+            return {
+                isFetching:false,
+                error:null,
+                user:action.error
+            }
         }
     }
 }
