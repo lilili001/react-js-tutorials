@@ -2,7 +2,10 @@ import React from 'react';
 import {connect} from 'dva'
 const UserPage = (props) => {
     const {dispatch} = props;
-    const {isFetching,user,error} = props.user;
+    const {user,error} = props.user;
+    //loading局部的可以用这个，全局的可以用props.loading.globle 监听多个listen
+    let isFetching = props.loading.effects['user/fetch'];//loading
+
     let data;
     if (error) {
         data = error;
@@ -25,7 +28,8 @@ UserPage.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        user:state.user
+        user:state.user,
+        loading:state.loading
     }
 }
 

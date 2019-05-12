@@ -34,7 +34,7 @@ export default {
                 if(match){
                     //todo
                 }
-                console.log(location)
+                console.log('当前路由：',location)
             })
         }
     },

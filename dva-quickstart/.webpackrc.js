@@ -1,0 +1,17 @@
+export default {
+    "entry":{
+        "index":"./src/index.js",
+        "about":"./src/about.js"
+    },
+    "extraResolveExtensions":['.css', '.mjs', '.js', '.json'],
+    "proxy": {
+      "/api": {
+        "target": "http://jsonplaceholder.typicode.com/",
+        "changeOrigin": true,
+        "pathRewrite": { "^/api" : "" }
+      }
+    },
+    "manifest": {
+        "index": "/index/"
+    }
+}

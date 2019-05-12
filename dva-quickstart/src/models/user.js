@@ -19,38 +19,38 @@ export default {
     },
     effects: {//异步的方法
         *fetch(action, { call, put , select,all }) {  // eslint-disable-line //select 可以取出state的值
-            yield put({type:'FETCH_USER_START'});
+            yield put({type:'fetch/start'});
             try{
                 const [user] = yield  all([
-                    call( axios.get, "https://jsonplaceholder.typicode.com/users" ),
+                    call( axios.get, "/api/users" ),
                     //call( axios.get, "https://jsonplaceholder.typicode.com/todos" )
                 ]);
                 //dispatch
-                yield put({type:"FETCH_USER_SUCCESS",user})
+                yield put({type:"fetch/user",user})
             }catch (e) {
-                yield put({type:"FETCH_USER_ERROR",error:e.message})
+                yield put({type:"fetch/error",error:e.message})
             }
         },
     },
     reducers:{//普通的方法
-        'FETCH_USER_START'(state,action){
+        'fetch/start'(state,action){
             return {
-                isFetching:true,
+                //isFetching:true,
                 error:null,
                 user:null
             }
             //return {...state,...action.payload}
         },
-        'FETCH_USER_SUCCESS'(state,action){
+        'fetch/user'(state,action){
             return {
-                isFetching:false,
+                //isFetching:false,
                 error:null,
                 user:action.user
             }
         },
-        'FETCH_USER_ERROR'(state,action){
+        'fetch/error'(state,action){
             return {
-                isFetching:false,
+                //isFetching:false,
                 error:null,
                 user:action.error
             }
